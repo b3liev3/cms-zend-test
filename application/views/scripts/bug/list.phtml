@@ -1,0 +1,18 @@
+<h2>Current Bugs</h2>
+<?php echo $this->form; ?>
+<table class='spreadsheet' cellspacing='0'>
+    <thead>
+    <tr>
+        <th>&nbsp;</th>
+        <th>Date</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>URL</th>
+        <th>Submitter</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php echo $this->partialLoop('bug/table-row.phtml',$this->bugs); ?>
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+<?php
+    echo "<tr>";
+    echo "<td><a href='/bug/edit/id/{$this->id}'>Edit</a> | <a href='/bug/delete/id/{$this->id}'>Delete</a></td>";
+    $date = date('m/d/y', $this->date);
+    echo "<td>{$date}</td>";
+    echo "<td>{$this->priority}</td>";
+    echo "<td>{$this->status}</td>";
+    echo "<td>{$this->url}</td>";
+    echo "<td>{$this->author}</td>";
+    echo "<td>{$this->description}</td>";
+    echo "</tr>";
