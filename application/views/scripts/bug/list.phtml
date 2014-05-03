@@ -1,5 +1,9 @@
 <h2>Current Bugs</h2>
 <?php echo $this->form; ?>
+<?php echo $this->paginationControl($this->paginator,
+     'Sliding',
+     'partials/pagination-control.phtml'); ?>
+
 <table class='spreadsheet' cellspacing='0'>
     <thead>
     <tr>
@@ -13,6 +17,6 @@
     </tr>
     </thead>
     <tbody>
-        <?php echo $this->partialLoop('bug/table-row.phtml',$this->bugs); ?>
+        <?php echo $this->partialLoop('bug/table-row.phtml',$this->paginator); ?>
     </tbody>
 </table>

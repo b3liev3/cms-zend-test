@@ -98,5 +98,9 @@ class Form_Form extends Form_Html
         
         return implode('',$html);
     }
-                
+        
+    public function populate($values = array())
+    {
+        
+    }
 }

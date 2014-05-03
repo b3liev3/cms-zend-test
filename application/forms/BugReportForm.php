@@ -1,16 +1,10 @@
 <?php
-class Form_BugReportForm
+class Form_BugReportForm extends Form_Form
 {
-    /**
-     *
-     * @var Form_Form
-     */
-    protected $form;
-    
     public function __construct()
     {
-        $form = new Form_Form('/bug/submit');
-        $form->setId('bug-form');
+        parent::__construct('/bug/submit');
+        $this->setId('bug-form');
         
         $author = new Form_ElementText('author','Author');
         $author->setRequired();
@@ -38,7 +32,7 @@ class Form_BugReportForm
         ->setRequired();
         $submit = new Form_ElementSubmit('submit','Submit');
         
-        $form->addElement($author)
+        $this->addElement($author)
                 ->addElement($email)
                 ->addElement($date)
                 ->addElement($url)
@@ -46,16 +40,6 @@ class Form_BugReportForm
                 ->addElement($priority)
                 ->addElement($status)
                 ->addElement($submit);
-        $this->form = $form;
     }
     
-    public function __call($name,$arguments)
-    {
-        return $this->form->{$name}($arguments[0]);
-    }
-    
-    public function __toString()
-    {
-        return $this->form->render();
-    }
 }
