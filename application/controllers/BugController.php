@@ -45,23 +45,41 @@ class BugController extends Zend_Controller_Action
     public function editAction()
     {
         $bugModel = new Model_Bug();
-        
         $form = new Form_BugReportForm();
         
-        $params = $this->_request->getParams();
-        if(isset($params['id'])){
+        if($this->getRequest()->isPost()) {
+            if($form->isValid($_POST)) {
+                $bugModel = new Model_Bug();
+                // if the form is valid then update the bug
+                $result = $bugModel->updateBug(
+                    $form->getValue('id'),
+                    $form->getValue('author'),
+                    $form->getValue('email'),
+                    $form->getValue('date'),
+                    $form->getValue('url'),
+                    $form->getValue('description'),
+                    $form->getValue('priority'),
+                    $form->getValue('status')
+                );
+                return $this->_forward('list');
+            }
+        } else {
             $id = $this->_request->getParam('id');
             $bug = $bugModel->find($id)->current();
-            if($bug){
-                $form->populate($bug->toArray());
-                $date = $form->getElement('date')->setValue(date('m-d-Y',$bug->date));
-                $this->view->bug = $bug;
-            }
-            
+            $form->populate($bug->toArray());
+            //format the date field
+            $form->getElement('date')->setValue(date('m-d-Y', $bug->date));
         }
         
-        
         $this->view->form = $form;
+    }
+    
+    public function deleteAction()
+    {
+        $bugModel = new Model_Bug();
+        $id = $this->_request->getParam('id');
+        $bugModel->deleteBug($id);
+        return $this->_forward('list');
     }
     
     public function listAction()
