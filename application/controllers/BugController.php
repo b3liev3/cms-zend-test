@@ -52,11 +52,12 @@ class BugController extends Zend_Controller_Action
         if(isset($params['id'])){
             $id = $this->_request->getParam('id');
             $bug = $bugModel->find($id)->current();
-        
-            $form->populate($bug->toArray());
-            $form->getElement('date')->setValue(date('m-d-Y',$bug->date));
+            if($bug){
+                $form->populate($bug->toArray());
+                $date = $form->getElement('date')->setValue(date('m-d-Y',$bug->date));
+                $this->view->bug = $bug;
+            }
             
-            $this->view->bug = $bug;
         }
         
         

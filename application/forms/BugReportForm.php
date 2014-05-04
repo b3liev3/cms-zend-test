@@ -8,6 +8,7 @@ class Form_BugReportForm extends Form_Form
         
         $author = new Form_ElementText('author','Author');
         $author->setRequired();
+        $id = new Form_ElementHidden('id');
         $email = new Form_ElementText('email','Email');
         $email->setRequired();
         $date = new Form_ElementText('date','Date');
@@ -33,6 +34,7 @@ class Form_BugReportForm extends Form_Form
         $submit = new Form_ElementSubmit('submit','Submit');
         
         $this->addElement($author)
+                ->addElement($id)
                 ->addElement($email)
                 ->addElement($date)
                 ->addElement($url)

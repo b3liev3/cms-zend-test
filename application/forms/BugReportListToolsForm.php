@@ -1,21 +1,9 @@
 <?php
-class Form_BugReportListToolsForm
-{
-    protected $form;
-    
-    public function __call($name,$arguments)
-    {
-        return $this->form->{$name}($arguments[0]);
-    }
-    
-    public function __toString()
-    {
-        return $this->form->render();
-    }
-    
+class Form_BugReportListToolsForm extends Form_Form
+{    
     public function __construct()
     {
-        $this->form = new Form_Form('/bug/list');
+        parent::__construct('/bug/list');
         
         $options = array(
             '0' => 'None',
@@ -27,14 +15,14 @@ class Form_BugReportListToolsForm
         );
         $sort = new Form_ElementSelect('sort', 'Sort');
         $sort->setOptions($options);
-        $this->form->addElement($sort);
+        $this->addElement($sort);
         $field = new Form_ElementSelect('field', 'Field');
         $field->setOptions($options);
-        $this->form->addElement($field);
+        $this->addElement($field);
         
         $filter = new Form_ElementText('filter','Filter');
-        $this->form->addElement($filter);
+        $this->addElement($filter);
         
-        $this->form->addElement(new Form_ElementSubmit('submit'));
+        $this->addElement(new Form_ElementSubmit('submit'));
     }
 }

@@ -101,6 +101,18 @@ class Form_Form extends Form_Html
         
     public function populate($values = array())
     {
-        
+        foreach($values as $key => $val){
+            if(isset($this->elementsIds[$key])){
+                $this->elementsIds[$key]->setValue($val);
+            }else{
+                echo $key; exit;
+                throw new Exception('Element does not exist in the form');
+            }
+        }
+    }
+    
+    public function __toString()
+    {
+        return $this->render();
     }
 }
