@@ -1,5 +1,6 @@
 <?php
-abstract class Form_Html
+namespace Pform{
+abstract class Html
 {
     protected $class = array();
     
@@ -54,4 +55,5 @@ abstract class Form_Html
     }
     
     abstract function render();
+}
 }

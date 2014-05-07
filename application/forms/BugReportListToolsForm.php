@@ -1,5 +1,5 @@
 <?php
-class Form_BugReportListToolsForm extends Form_Form
+class Form_BugReportListToolsForm extends Pform\Form
 {    
     public function __construct()
     {
@@ -13,16 +13,16 @@ class Form_BugReportListToolsForm extends Form_Form
             'url' => 'URL',
             'author' => 'Submitter'
         );
-        $sort = new Form_ElementSelect('sort', 'Sort');
+        $sort = new Pform\ElementSelect('sort', 'Sort');
         $sort->setOptions($options);
         $this->addElement($sort);
-        $field = new Form_ElementSelect('field', 'Field');
+        $field = new Pform\ElementSelect('field', 'Field');
         $field->setOptions($options);
         $this->addElement($field);
         
-        $filter = new Form_ElementText('filter','Filter');
+        $filter = new Pform\ElementText('filter','Filter');
         $this->addElement($filter);
         
-        $this->addElement(new Form_ElementSubmit('submit'));
+        $this->addElement(new Pform\ElementSubmit('submit'));
     }
 }

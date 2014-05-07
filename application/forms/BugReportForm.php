@@ -1,37 +1,37 @@
 <?php
-class Form_BugReportForm extends Form_Form
+class Form_BugReportForm extends Pform\Form
 {
     public function __construct()
     {
         parent::__construct('/bug/submit');
         $this->setId('bug-form');
         
-        $author = new Form_ElementText('author','Author');
+        $author = new Pform\ElementText('author','Author');
         $author->setRequired();
-        $id = new Form_ElementHidden('id');
-        $email = new Form_ElementText('email','Email');
+        $id = new Pform\ElementHidden('id');
+        $email = new Pform\ElementText('email','Email');
         $email->setRequired();
-        $date = new Form_ElementText('date','Date');
+        $date = new Pform\ElementText('date','Date');
         $date->setRequired();
-        $url = new Form_ElementText('url','URL');
+        $url = new Pform\ElementText('url','URL');
         $url->setRequired();
-        $description = new Form_ElementTextarea('description','Description');
+        $description = new Pform\ElementTextarea('description','Description');
         $description->setRequired();
-        $priority = new Form_ElementSelect('priority','Priority');
+        $priority = new Pform\ElementSelect('priority','Priority');
         $priority->setOptions(array(
             'prio-1' => 'prio1',
             'prio-2' => 'prio2',
             'prio-3' => 'prio3'
         ))
         ->setRequired();
-        $status = new Form_ElementSelect('status','Status');
+        $status = new Pform\ElementSelect('status','Status');
         $status->setOptions(array(
             'option-1' => 'option1',
             'option-2' => 'option2',
             'option-3' => 'option3'
         ))
         ->setRequired();
-        $submit = new Form_ElementSubmit('submit','Submit');
+        $submit = new Pform\ElementSubmit('submit','Submit');
         
         $this->addElement($author)
                 ->addElement($id)

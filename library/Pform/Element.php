@@ -1,5 +1,6 @@
 <?php
-abstract class Form_Element extends Form_Html
+namespace Pform{
+abstract class Element extends Html
 {
     protected $label = '';
     
@@ -7,9 +8,19 @@ abstract class Form_Element extends Form_Html
     
     protected $required = false;
     
-    protected $container = 'p';
+    protected $container = '';
     
     protected $name = '';
+    
+    protected $input = '';
+    
+    protected $hasMessage = true;
+    
+    public function removeContainer()
+    {
+        $this->container = '';
+        return $this;
+    }
     
     public function setValue($value)
     {
@@ -46,17 +57,22 @@ abstract class Form_Element extends Form_Html
         return $this;
     }
     
-    public function setDefaultContainer($value)
+    public function setContainer($value)
     {
         $this->container = $value;
     }    
     
-    public function __construct($id,$label = '',$value = null)
+    /**
+     * 
+     * @param string $name
+     * @param string $label
+     * @param mixed $value
+     * @return \Pform\Element
+     */
+    public function __construct($name)
     {
-        $this->setId($id);
-        $this->name = $id;
-        $this->label = $label;
-        $this->value = $value;
+        $this->setId($name);
+        $this->name = $name;
         return $this;
     }
     
@@ -103,17 +119,42 @@ abstract class Form_Element extends Form_Html
         
     }
     
-    public function render($extra = '')
+    protected function getLabel()
     {
+        if(empty($this->label)){
+            return '';
+        }
         $required = '';
         if($this->required){
             $required = '*';
         }
-        $message = '';
-        if($this->hasClass('empty')){
-            $message = 'This is field is required';
+        return "<label for='{$this->getId()}'>{$this->label}{$required}</label>";
+    }
+    
+    protected function getMessage()
+    {
+        if($this->hasMessage){
+            $message = '';
+            if($this->hasClass('empty')){
+                $message = 'This is field is required';
+            }
+            return "<span class='message'>{$message}</span>";
         }
-        return "<{$this->container}><label for='{$this->getId()}'>{$this->label}{$required}</label>{$extra}<span class='message'>{$message}</span></$this->container>";
+    }
+    
+    public function render()
+    {
+        if(empty($this->container)){
+            return "{$this->getLabel()}
+            {$this->input}
+                {$this->getMessage()}";
+        }else{
+            return "<{$this->container}>
+                {$this->getLabel()}
+                {$this->input}
+                    {$this->getMessage()}
+                        </$this->container>";
+        }
     }
 
-}
+}}

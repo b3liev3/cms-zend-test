@@ -1,5 +1,6 @@
 <?php
-class Form_Form extends Form_Html
+namespace Pform{
+class Form extends Html
 {
     protected $method = 'POST';
     
@@ -15,21 +16,21 @@ class Form_Form extends Form_Html
         return $this;
     }
     
-    public function appendElement(Form_Element $element)
+    public function appendElement(Element $element)
     {
         $this->elements[] = $element;
         $this->elementsIds[$element->getId()] = $element;
         return $this;
     }
     
-    public function prependElement(Form_Element $element)
+    public function prependElement(Element $element)
     {
         $this->elements = array($element) + $this->elements;
         $this->elementsIds[$element->getId()] = $element;
         return $this;
     }
     
-    public function addElement(Form_Element $element)
+    public function addElement(Element $element)
     {
        $this->appendElement($element);
        return $this;
@@ -115,4 +116,5 @@ class Form_Form extends Form_Html
     {
         return $this->render();
     }
+}
 }

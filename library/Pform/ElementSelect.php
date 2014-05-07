@@ -1,5 +1,6 @@
 <?php
-class Form_ElementSelect extends Form_Element
+namespace Pform{
+class ElementSelect extends Element
 {
     protected $options = array();
     
@@ -26,6 +27,8 @@ class Form_ElementSelect extends Form_Element
     
     public function render()
     {
-        return parent::render("<select {$this->getIdTag()} {$this->getClassTag()} {$this->getNameTag()}>{$this->renderOptions()}</select>");
+        $this->input = "<select {$this->getIdTag()} {$this->getClassTag()} {$this->getNameTag()}>{$this->renderOptions()}</select>";
+        return parent::render();
     }
+}
 }
