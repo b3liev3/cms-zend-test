@@ -1,11 +1,10 @@
 <?php
 namespace Pform{
-class ElementHidden extends Element
+class ElementHidden extends Input
 {
     public function __construct($name) {
+	$this->type = 'hidden';
         parent::__construct($name);
-        $this->input = "<input {$this->getIdTag()} {$this->getClassTag()} {$this->getValueTag()} {$this->getNameTag()} type='hidden' />";
-
     }
 
 }

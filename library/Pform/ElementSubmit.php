@@ -1,11 +1,10 @@
 <?php
 namespace Pform{
-class ElementSubmit extends Element
+class ElementSubmit extends Input
 {
     public function __construct($name) {
+	$this->type = 'submit';
         parent::__construct($name);
-        
-        $this->input = "<input {$this->getIdTag()} {$this->getClassTag()} {$this->getValueTag()} {$this->getNameTag()} type='submit' />";
     }
     
 }

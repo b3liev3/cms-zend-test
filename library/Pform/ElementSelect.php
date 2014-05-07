@@ -1,13 +1,18 @@
 <?php
 namespace Pform{
-class ElementSelect extends Element
+class ElementSelect extends FormElement
 {
     protected $options = array();
     
-    public function setOptions($options = array())
+    public function setOptions(array $options)
     {
         $this->options = $options;
         return $this;
+    }
+    
+    public function addOptions(array $options)
+    {
+	$this->setOptions($options);
     }
     
     protected function renderOptions()

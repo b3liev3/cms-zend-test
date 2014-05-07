@@ -1,6 +1,6 @@
 <?php
 namespace Pform{
-class ElementTextarea extends Element
+class ElementTextarea extends FormElement
 {
     public function __construct($name) {
         parent::__construct($name);
