@@ -10,7 +10,10 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-                 
+      //for testing
+	$a = new Model_ShopProduct();
+	echo $a->calculateTax('12');
+	
     }
     
     public function sessionTestAction()
