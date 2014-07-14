@@ -10,7 +10,12 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+                 
+    }
+    
+    public function sessionTestAction()
+    {
+	  // action body
         echo "<pre>";
         echo print_r($_REQUEST,true);
         echo "</pre>";
@@ -28,7 +33,6 @@ class IndexController extends Zend_Controller_Action
             $_SESSION['count']++;
         }
         echo 'counter: '.$_SESSION['count'].'<br/>';
-           
     }
 
 
