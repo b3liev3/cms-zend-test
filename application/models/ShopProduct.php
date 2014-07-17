@@ -1,7 +1,7 @@
 <?php
 class Model_ShopProduct{
         
-    use Utilitiestest\PriceUtilities;
+    use Utilities\TaxRate; //uses a trait
     
     public function __construct()
     {

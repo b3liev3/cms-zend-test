@@ -1,6 +1,6 @@
 <?php    
 namespace Prototype {
-	class Plains{
+	abstract class Plains{
 	   
 	}
     }

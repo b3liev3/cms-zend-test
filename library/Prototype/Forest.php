@@ -1,6 +1,6 @@
 <?php    
 namespace Prototype {
-	class Forest{
+	abstract class Forest{
 	   
 	}
     }
