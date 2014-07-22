@@ -1,5 +1,5 @@
 <?php
-    namespace Composite {
+    namespace Visitor {
 	class Army extends CompositeUnit {
 
 	    function bombardStrength()
