@@ -6,7 +6,7 @@
 	    
 	    function accept(ArmyVisitor $visitor)
 	    {
-		$method = "visit".$this->stripNamespaceFromClassName($this);
+		$method = "visit".\Utilities\Utilities::stripNamespaceFromClassName($this);
 		$visitor->$method($this);
 	    }
 	    
@@ -23,17 +23,6 @@
 	    function getComposite()
 	    {
 		return null;
-	    }
-	    
-	    public function stripNamespaceFromClassName($obj)
-	    {
-		$classname = get_class($obj);
-
-		if (preg_match('@\\\\([\w]+)$@', $classname, $matches)) {
-		    $classname = $matches[1];
-		}
-
-		return $classname;
 	    }
 	    
 	    abstract function bombardStrength();

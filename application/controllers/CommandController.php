@@ -5,7 +5,8 @@ class CommandController extends Zend_Controller_Action
 
     function indexAction()
     {
-	echo 'here';
+	echo '<h1>Command</h1>';
+	echo "See the patter in it's folder.";
 	exit;
     }
 
