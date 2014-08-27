@@ -1,0 +1,6 @@
+/*
+ * There are several approaches:
+ * 1.Describing them with Comments
+ * 2.With attribute checking
+ * 3.Emulating with "Duck Typing"
+ */

@@ -1,0 +1,24 @@
+Conventions in the book
+=======================
+left book -> right "jQuery"
+
+$(id) --> $('#id')
+addEvent(obj,type,func) --> .on()
+addLoadEvent(func) --> .ready()
+getElemntsByClass(searchClass,node,tag) --> $('.class')
+insertAfter(parent,node,referenceNode) --> .insertAfter()
+getCookie(name) --> $.cookie()
+setCookie(name) -->
+deleteCookie(name) --> $.removeCookie()
+clone(object) --> jQuery.extend({}, vi.details);
+
+
+Reasons to use patterns
+=======================
+*Maintanability
+*Communication
+*Performance
+
+but you also get
+*Complexity (for reading for novices)
+*Performance (some patterns improve performance, but most of them add a slight performance overhead).
