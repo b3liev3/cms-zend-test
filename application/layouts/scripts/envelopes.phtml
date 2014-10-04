@@ -7,34 +7,21 @@
         echo $this->headScript();
         
         //add a link to the site stylesheet
-        $this->headLink()->appendStylesheet('css/default/layout.css');
+        $this->headLink()->appendStylesheet('css/envelopes/main.css');
         echo $this->headLink();
     ?>
     </head>
     <body>
         <div id="pageWrapper">
-            <div id="header">
-                <h1>Zend Framework CMS</h1>
-            </div>
             <div id="nav">
+                <?php echo get_class($this->layout()); ?>
                 <?php echo $this->layout()->nav; ?>
-            </div>
-            <div id="sidebar">
-                <div id="subNav">
-                    <?php echo $this->layout()->subNav; ?>
-                </div>
-                <div id="adminMenu">
-                    <?php echo $this->layout()->adminMenu; ?>
-                </div>
-                <div id="userForm">
-                    <?php echo $this->layout()->userForm; ?>
-                </div>
             </div>
             <div id="main">
                 <?php echo $this->layout()->content; ?>
             </div>
             <div id="footer">
-                <p>Powered by the Zend Framework</p>
+                <p>Powered by the HCC Global It Department</p>
             </div>
         </div>
     </body>

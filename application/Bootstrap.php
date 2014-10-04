@@ -14,7 +14,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         return $view;
     }
-    
+    /*
     protected function _initAutoload()
     {
         //Add autoloader empty namespace
@@ -37,6 +37,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //return it so that it can be stored by the bootstrap
         return $autoLoader;
     }
-
+*/
 }
 
