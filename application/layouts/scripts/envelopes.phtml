@@ -7,21 +7,27 @@
         echo $this->headScript();
         
         //add a link to the site stylesheet
-        $this->headLink()->appendStylesheet('css/envelopes/main.css');
+        $this->headLink()->appendStylesheet('/css/envelopes/main.css');
         echo $this->headLink();
     ?>
     </head>
     <body>
         <div id="pageWrapper">
             <div id="nav">
-                <?php echo get_class($this->layout()); ?>
+                <?php 
+                $login = new Zend_Session_Namespace('Login');
+                echo $login->user;
+                ?>
                 <?php echo $this->layout()->nav; ?>
+            </div>
+            <div id="messages">
+                <?php echo Envelopes_Model_Messages::render(); ?>
             </div>
             <div id="main">
                 <?php echo $this->layout()->content; ?>
             </div>
             <div id="footer">
-                <p>Powered by the HCC Global It Department</p>
+                <p>footer</p>
             </div>
         </div>
     </body>
