@@ -4,15 +4,17 @@ class Envelopes_Model_Birthday{
     
     protected $_username;
     
-    protected $_complete;
-    
     protected $_date;
     
-    function __construct($username,$complete,$date)
+    protected $_complete;
+    
+    function __construct($username,$date,$complete = null)
     {
         $this->_username = $username;
-        $this->_complete = $complete;
         $this->_date = $date;
+        if($complete){
+            $this->_complete = $complete;
+        }
     }
     
     function setId($value)
@@ -24,12 +26,6 @@ class Envelopes_Model_Birthday{
     function setUsername($value)
     {
         $this->_username = $value;
-        return $this;
-    }
-    
-    function setComplete($value)
-    {
-        $this->_complete = $value;
         return $this;
     }
     
@@ -51,6 +47,11 @@ class Envelopes_Model_Birthday{
     
     function getComplete()
     {
+        if(is_null($this->_complete)){
+            $mapper = new Envelopes_Model_UserMapper();
+            $user = $mapper->findRow($this->_username);
+            return $user['complete'];
+        }
         return $this->_complete;
     }
     

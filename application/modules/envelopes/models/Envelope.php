@@ -10,13 +10,26 @@ class Envelopes_Model_Envelope{
    protected $_closeDate;
    
    protected $_comments;
+   
+   protected $_type;
     
-   function __construct($inCharge,$forWhom,$closeDate,$comments)
+   function __construct($inCharge,$forWhom,$type,$closeDate,$comments)
    {
        $this->_inCharge = $inCharge;
        $this->_forWhom = $forWhom;
        $this->_closeDate = $closeDate;
        $this->_comments = $comments;
+       $this->_type = $type;
+   }
+   
+   function setType($value)
+   {
+       $this->_type = $value;
+   }
+   
+   function getType()
+   {
+       return $this->_type;
    }
    
    function getInCharge()

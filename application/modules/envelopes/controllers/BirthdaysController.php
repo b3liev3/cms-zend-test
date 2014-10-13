@@ -1,44 +1,104 @@
 <?php
 
-class Envelopes_BirthdaysController extends Zend_Controller_Action
-{
-    function init() {
-        parent::init();
-        $this->_helper->layout->setLayout('envelopes');
-        Zend_Layout::getMvcInstance()->assign('nav', 'here goes the nav');
-        $this->view->headScript()->appendFile('/js/jQuery/jquery-2.1.1.min.js');
-        $this->view->headScript()->appendFile('/js/uikit/uikit.js');
-        $this->view->headLink()->appendStylesheet('/css/uikit/uikit.gradient.css');
-        $this->view->headLink()->appendStylesheet('/css/uikit/addons/uikit.gradient.addons.min.css');
-    }
-    
-    function indexAction()
-    {
+class Envelopes_BirthdaysController extends MyLibrary_Controller_Action {
+
+    /**
+     * 
+     */
+    function indexAction() {
+        
         //list
+        $envelopesMapper = new Envelopes_Model_EnvelopeMapper();
+        $rows = $envelopesMapper->getEnvelopeTableRows();
+        if($rows){
+            $this->view->rows = $rows;
+        }else{
+            Envelopes_Model_Messages::add('No Birthdays in the System','error');
+        }
+    }
+
+    /**
+     * Create or edit birthdays
+     */
+    function birthdayAction() {
+        
+        //$this->_addUikitComponent('datepicker');
+        
+        $this->_addJs('/js/envelopes/birthday-page.js');
+        $this->_addJs('/js/tools/jquery.maskedinput.min.js');
+        
         $mapper = new Envelopes_Model_BirthdayMapper();
-        echo \Utilities\Utilities::pre($mapper->find(1));
-        echo \Utilities\Utilities::pre($mapper->findAllRows());
-        echo \Utilities\Utilities::pre($mapper->findByUsername('ppages'));
+        $operation = $this->_request->getParam('operation');
+        
+        $birthday = new Envelopes_Model_Birthday('','');
+        
+        if ($operation){
+            if(!$this->_validateParams($this->_request->getParams())){
+                //nothing
+            }else{
+                $option = '';
+                $birthday = $mapper->createObject($this->_request->getParam('username'), '1900-'.$this->_request->getParam('birthday'));
+                if($operation == 'insert'){
+                    $mapper->save($birthday);
+                    $option = '?id='.$birthday->getId();
+                }elseif($operation == 'insert-and-new'){
+                    $mapper->save($birthday);
+                    //nothing
+                }elseif($operation == 'update'){
+                    $id = $this->_request->getParam('id');
+                    if ($id){
+                        $birthday->setId($id);
+                    }
+                    $mapper->save($birthday);
+                    $option = '?id='.$birthday->getId();
+                }
+                
+                Envelopes_Model_Messages::add('Birthday saved.','success');
+                $this->_redirect('/envelopes/birthdays/birthday'.$option);
+            }
+        }else{
+            //load or new birthday form
+            $id = $this->_request->getParam('id');
+            if ($id) {
+                //load
+                $birthday = $mapper->find($id);
+                if (!$birthday) {
+                    Envelopes_Model_Messages::add('Id does not exist.', 'error');
+                    $birthday = new Envelopes_Model_Birthday('','');
+                }
+            }
+        }        
+        $this->view->birthday = $birthday;
+        
     }
     
-    function birthdayAction()
+    function deleteAction()
     {
-        echo \Utilities\Utilities::pre($this->_request->getParams());
         $id = $this->_request->getParam('id');
         if($id){
-            if($id != -1){
+            //try to delete
             $mapper = new Envelopes_Model_BirthdayMapper();
-            $this->view->birthday = $mapper->find($id);
-            if(!$this->view->birthday && $id != -1){
-                Envelopes_Model_Messages::add('Wrong Id','error');
-            }
+            $mapper->delete($id);
+            Envelopes_Model_Messages::add('deleted','success');
+        }else{
+            Envelopes_Model_Messages::add('Missing id','error');
         }
-        
-        }
-        
-        if(!$this->view->birthday){
-            $this->view->birthday = new Envelopes_Model_Birthday('', '', '');
-        }
+        $this->_redirect('/envelopes/birthdays');
     }
     
+    protected function _validateParams(array $params)
+    {
+        $ok = true;
+        if(!isset($params['username'])){
+            $ok = false;
+            Envelopes_Model_Messages::add('Missing User','error');
+        }
+        if(!isset($params['birthday']) || $params['birthday'] == ''){
+            $ok = false;
+            Envelopes_Model_Messages::add('Missing Birthday','error');
+        }
+        
+        return $ok;
+    }
+
 }

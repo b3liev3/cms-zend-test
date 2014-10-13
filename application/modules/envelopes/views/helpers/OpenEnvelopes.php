@@ -53,7 +53,7 @@ class Envelopes_View_Helper_OpenEnvelopes extends Zend_View_Helper_Abstract{
         $html[] = "<tr envelope='{$row['id']}'>";
         
         
-        $html[] = "<td>{$this->_getStatus($row['status'])}</td>";
+        $html[] = "<td>{$this->_getStatus('OPEN')}</td>";
         $html[] = "<td>{$row['closedate']}</td>";
         if($row['contributed'] == 'Y'){
             $html[] = "<td class='uk-text-center'><i class='uk-icon-check'></i></td>";

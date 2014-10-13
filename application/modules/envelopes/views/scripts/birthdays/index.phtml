@@ -1,1 +1,7 @@
 <h2>Birthdays</h2>
+<h3>@<?php echo date('y-n-j',time());?></h3>
+<?php
+    if($this->rows){
+        echo $this->birthdays($this->rows);
+    }
+?>

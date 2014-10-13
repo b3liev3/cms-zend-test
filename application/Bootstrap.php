@@ -34,7 +34,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initTest()
     {
         $front = Zend_Controller_Front::getInstance();
-        $front->registerPlugin(new Envelopes_Plugin_Test()); 
+        $front->registerPlugin(new Envelopes_Plugin_Login());
     }
     
     
