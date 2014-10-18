@@ -71,5 +71,10 @@ class Envelopes_Model_UserMapper{
         }
         return null;
     }
+    
+    function save(Envelopes_Model_User $user)
+    {
+        
+    }
 }
     

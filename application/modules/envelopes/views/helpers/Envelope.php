@@ -12,7 +12,7 @@ class Envelopes_View_Helper_Envelope extends Zend_View_Helper_Abstract{
         $html = array();
         $html[] = "<form class='uk-form uk-form-stacked'>";
         
-        $html[] = "<input type='hidden' name='id' value='{$envelope->getId()}' />";
+        $html[] = "<input type='hidden' name='".Envelopes_Model_EnvelopeMapper::DB_ID."' value='{$envelope->getId()}' />";
         
         $html[] = "<legend>Envelope</legend>";
         

@@ -12,19 +12,33 @@ class Envelopes_Model_Envelope{
    protected $_comments;
    
    protected $_type;
+   
+   protected $_year;
     
-   function __construct($inCharge,$forWhom,$type,$closeDate,$comments)
+   function __construct($inCharge,$forWhom,$type,$closeDate,$comments,$year,$type)
    {
        $this->_inCharge = $inCharge;
        $this->_forWhom = $forWhom;
        $this->_closeDate = $closeDate;
        $this->_comments = $comments;
        $this->_type = $type;
+       $this->_year = $year;
    }
    
    function setType($value)
    {
        $this->_type = $value;
+   }
+   
+   function setYear($value)
+   {
+       $this->_year = $value;
+       return $this;
+   }
+   
+   function getYear()
+   {
+       return $this->_year;
    }
    
    function getType()

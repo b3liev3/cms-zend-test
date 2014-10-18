@@ -1,6 +1,19 @@
 <?php
 class Envelopes_Model_EnvelopeMapper{
     
+    CONST DB_ID = 'id';
+    CONST DB_INCHARGE = 'incharge';
+    CONST DB_FORWHOM = 'forwhom';
+    CONST DB_CLOSEDATE = 'closedate';
+    CONST DB_COMMENTS = 'comments';
+    CONST DB_YEAR = 'year';
+    CONST DB_TYPE = 'type';
+    
+    CONST CONST_TYPE_BIRTHDAY = 'BIRTHDAY';
+    CONST CONST_TYPE_BABY = 'BABY';
+    CONST CONST_TYPE_WEDDING = 'WEDDING';
+    CONST CONST_TYPE_OTHER = 'OTHER';
+    
     function getAdapter()
     {
         return Zend_Db_Table::getDefaultAdapter();
@@ -16,25 +29,48 @@ class Envelopes_Model_EnvelopeMapper{
         $row = $this->getAdapter()->fetchAll("select * from envelopes where id = ?",$id);
         if($row){
             $r = $row[0];
-            $envelope = new Envelopes_Model_Envelope($r['incharge'],$r['forwhom'],$r['closedate'],$r['comments']);
-            $envelope->setId($r['id']);
+            $envelope = new Envelopes_Model_Envelope($r[self::DB_INCHARGE],$r[self::DB_FORWHOM],$r[self::DB_CLOSEDATE],$r[self::DB_COMMENTS]);
+            $envelope->setId($r[self::DB_ID]);
             return $envelope;
         }
         return null;
     }
     
-    function createObject($incharge,$forwhom,$type,$closedate,$comments)
+    function createObject(array $data)
     {
-        return new Envelopes_Model_Envelope($incharge,$forwhom,$type,$closedate,$comments);
+        if(!isset($data[self::DB_INCHARGE])){
+            $data[self::DB_INCHARGE] = '';
+        }
+        if(!isset($data[self::DB_FORWHOM])){
+            $data[self::DB_FORWHOM] = '';
+        }
+        if(!isset($data[self::DB_TYPE])){
+            $data[self::DB_TYPE] = '';
+        }
+        if(!isset($data[self::DB_CLOSEDATE])){
+            $data[self::DB_CLOSEDATE] = '';
+        }
+        if(!isset($data[self::DB_COMMENTS])){
+            $data[self::DB_COMMENTS] = '';
+        }
+        if(!isset($data[self::DB_YEAR])){
+            $data[self::DB_YEAR] = '';
+        }
+        if(!isset($data[self::DB_TYPE])){
+            $data[self::DB_TYPE] = '';
+        }
+        return new Envelopes_Model_Envelope($data[self::DB_INCHARGE],$data[self::DB_FORWHOM],$data[self::DB_TYPE],$data[self::DB_CLOSEDATE], $data[self::DB_COMMENTS],$data[self::DB_YEAR],$data[self::DB_TYPE]);
     }
     
     function save(Envelopes_Model_Envelope $envelope)
     {
         $data = array();
-        $data['incharge'] = $envelope->getInCharge();
-        $data['forwhom'] = $envelope->getForWhom();
-        $data['closedate'] = $envelope->getCloseDate();
-        $data['comments'] = $envelope->getComments();
+        $data[self::DB_INCHARGE] = $envelope->getInCharge();
+        $data[self::DB_FORWHOM] = $envelope->getForWhom();
+        $data[self::DB_CLOSEDATE] = $envelope->getCloseDate();
+        $data[self::DB_COMMENTS] = $envelope->getComments();
+        $data[self::DB_YEAR] = $envelope->getYear();
+        $data[self::DB_TYPE] = $envelope->getType();
         
         if($envelope->hasBeenSaved()){
             $this->_insert($data);

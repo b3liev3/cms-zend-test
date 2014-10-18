@@ -26,15 +26,17 @@ class Envelopes_EnvelopeController extends MyLibrary_Controller_Action {
     function indexAction()
     {
         $this->view->headScript()->appendFile('/js/uikit/addons/datepicker.min.js');
-        
+                
         $mapper = new Envelopes_Model_EnvelopeMapper();
         if($this->_request->getParam('create') == 'insert'){
             //prefilled
             $user = Zend_Registry::get('user');
-            $envelope = $mapper->createObject($user->getId(),$this->_getParam('forwhom'),$this->_request->getParam('type'),'','');
+            $params = $this->_request->getParams();
+            $params[Envelopes_Model_EnvelopeMapper::DB_INCHARGE] = $user->getId();
+            $envelope = $mapper->createObject($params);
         }else{
             //new
-            $envelope = $mapper->createObject('', '', '', '');
+            $envelope = $mapper->createObject(array());
         }
         $this->view->envelope = $envelope;
     }

@@ -27,10 +27,14 @@ class Container extends Element{
 	return true;
     }
 
-    public function __construct($id)
+    /**
+     * 
+     * @param string $htmlId
+     */
+    public function __construct($htmlId)
     {
 	$this->wrapper = 'div';
-	$this->id = $id;
+	$this->id = $htmlId;
     }
     
     public function appendElement(Element $element)

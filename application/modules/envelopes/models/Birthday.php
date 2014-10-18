@@ -1,5 +1,6 @@
 <?php
 class Envelopes_Model_Birthday{
+    
     protected $_id = -1;
     
     protected $_username;
