@@ -2,9 +2,10 @@
 namespace Pform{
 class Textarea extends FormElement
 {
-    public function __construct($name) {
-        $this->_element = "<textarea {$this->getAttributes()}></textarea>";
-        parent::__construct($name);
+   
+    function render()
+    {
+        $this->_innerHtml = "<textarea {$this->getAttributes()}></textarea>";
     }
     
     function isValid($value) {

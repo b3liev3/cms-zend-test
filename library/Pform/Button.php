@@ -6,7 +6,7 @@ namespace Pform{
         
 	function render()
 	{
-	    $this->_element = "<button {$this->getAttributes()}>".$this->_description."</button>";
+	    $this->_innerHtml = "<button {$this->getAttributes()}>".$this->_description."</button>";
 	    return parent::render();
 	}
         
@@ -14,7 +14,7 @@ namespace Pform{
         {
             $this->addClass('uk-button');
             $this->_description = $description;
-            parent::__construct($name);
+            parent::__construct($name,'');
         }
         
         function isValid($value) {

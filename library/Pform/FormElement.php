@@ -8,7 +8,7 @@ abstract class FormElement extends Html
     
     protected $_name = '';
     
-    protected $_element = '';
+    protected $_innerHtml = '';
     
     protected $_required = false;
     
@@ -67,9 +67,10 @@ abstract class FormElement extends Html
         return $this;
     }
     
-    function __construct($name)
+    function __construct($name,$label)
     {
         parent::__construct($name);
+        $this->_label = $label;
         $this->_addAttribute('name',$name);
         return $this;
     }
@@ -104,7 +105,7 @@ abstract class FormElement extends Html
                 $h[] = $this->_getLabel();
             }
             $h[] = "<div class='uk-form-controls'>";
-            $h[] = $this->_element;
+            $h[] = $this->_innerHtml;
             $h[] = "</div>";
         $h[] = "</div>";
         return implode('',$h);
