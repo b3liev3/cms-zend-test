@@ -2,56 +2,76 @@
 namespace Pform{
 abstract class Html
 {
-    protected $class = array();
+    protected $_class = array();
     
-    protected $id = '';
+    protected $_attributes = array();
     
-    public function getId()
+    function __construct($id) 
     {
-        return $this->id;
+        $this->_attributes['id'] = $id;
     }
     
-    public function setId($value)
+    protected function _addAttribute($key,$value = '')
     {
-        $this->id = $value;
+        $this->_attributes[$key] = $value;
+        $this->_class[$key] = $value;
         return $this;
     }
     
-    public function addClass($value)
+    protected function _removeAttribute($key)
     {
-        $this->class[] = $value;
+        unset($this->_attributes[$key]);
+        unset($this->_class[$key]);
         return $this;
     }
     
-    public function getClass()
+    function getAttributes()
     {
-        return $this->class;
+        $attributes = '';
+        if(!empty($this->_class)){
+            $attributes = "class='".implode(' ',$this->_class)."' ";
+        }
+        if($this->_attributes){
+            foreach($this->_attributes as $key => $value){
+                if(empty($value)){
+                    $attributes = $attributes." {$key} ";
+                }else{
+                    $attributes = $attributes." {$key}='{$value}' ";
+                }
+                
+            }
+        }
+        return $attributes;
     }
     
-    public function hasClass($value)
+    function getId()
     {
-        if(in_array($value,$this->class)){
+        return $this->_attributes['id'];
+    }
+    
+    function addClass($value)
+    {
+        $this->_class[$value] = $value;
+        return $this;
+    }
+    
+    function removeClass($value)
+    {
+        unset($this->_class[$value]);
+        return $this;
+    }
+    
+    function getClassesArray()
+    {
+        return $this->_class;
+    }
+    
+    function hasClass($value)
+    {
+        if(in_array($value,$this->_class)){
             return true;
         }
         return false;
-    }
-    
-    public function getClassTag()
-    {
-        if($this->class){
-            $aux = implode(' ',$this->class);
-            return "class='{$aux}'";
-        }
-        return '';
-    }
-    
-    public function getIdTag()
-    {
-        if(empty($this->id)){
-            return '';
-        }else{
-            return "id='{$this->id}'";
-        }
     }
     
     abstract function render();

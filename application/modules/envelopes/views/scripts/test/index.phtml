@@ -1,0 +1,29 @@
+<?php
+    
+$form = new \Pform\Form('house');
+$form->setHorizontal();
+$form->setLegend('Your address');
+$e1 = new \Pform\InputText('your-name');
+$e1->setLabel('Your name');
+$form->appendElement($e1);
+$e2 = new \Pform\InputText('street');
+$e2->setLabel('Street name');
+$form->appendElement($e2);
+$button = new Pform\Button('submit','Submit');
+
+$fieldset = new Pform\Fieldset('fieldset-1');
+$fieldset->setLegend('Nice Legend');
+$textarea = new \Pform\Textarea('textarea');
+$textarea->setLabel('Comments');
+$user = new \Pform\InputText('other-text');
+$user->setLabel('User');
+
+$fieldset->appendElement($user);
+$fieldset->appendElement($textarea);
+$form->appendElement($fieldset);
+
+$form->appendElement($button);
+
+
+echo $form;
+    

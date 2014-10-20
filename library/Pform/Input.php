@@ -1,15 +1,18 @@
 <?php
 namespace Pform{
-    class Input extends FormElement{
+    abstract class Input extends FormElement{
 	
-	protected $type;
+	protected $_type;
 
-	public function render()
+	function render()
 	{
-	    if(empty($this->input)){
-		$this->input = "<input {$this->getIdTag()} {$this->getReadOnlyTag()} {$this->getClassTag()} {$this->getValueTag()} {$this->getNameTag()} type='{$this->type}' />";
-	    }
+	    $this->_element = "<input {$this->getAttributes()} type='{$this->_type}' />";
 	    return parent::render();
 	}
+        
+        function __construct($name)
+        {
+            parent::__construct($name);
+        }
     }
 }

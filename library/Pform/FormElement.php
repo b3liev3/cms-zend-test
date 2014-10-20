@@ -1,121 +1,113 @@
 <?php
 namespace Pform{
-abstract class FormElement extends Element
+abstract class FormElement extends Html
 {
-    protected $label = '';
+    protected $_label = '';
     
-    protected $value = null;
+    protected $_value = null;
     
-    protected $name = '';
+    protected $_name = '';
     
-    protected $input = '';
+    protected $_element = '';
     
-    public function setValue($value)
+    protected $_required = false;
+    
+    function setReadOnly($default = true)
     {
-        $this->value = $value;
+	if($default){
+            $this->_addAttribute('readonly');
+        }else{
+            $this->_removeAttribute('readonly');
+        }
+        return $this;
+    }
+
+    function isRequired()
+    {
+	return $this->_required;
+    }
+    
+    function setRequired($default = true)
+    {
+        if($default){
+            $this->_addAttribute('required');
+        }else{
+            $this->_removeAttribute('required');
+        }
+        return $this;
+    }
+    
+    function setDisabled($default = false)
+    {
+        if($default){
+            $this->_addAttribute('disabled');
+        }else{
+            $this->_removeAttribute('disabled');
+        }
+        return $this;
+    }
+    
+    function setValue($value)
+    {
+        $this->_addAttribute('value',$value);
 	return $this;
     }
     
-    public function getValueTag()
+    abstract function isValid($value);
+    
+    
+    function getValue()
     {
-        if(empty($this->value)){
-            return '';
-        }else{
-            return "value='{$this->value}'";
-        }
+        return $this->_attributes['value'];
     }
     
-    public function isValid($value)
+    function setLabel($value)
     {
-        return true;
-    }
-    
-    public function getValue()
-    {
-        return $this->value;
-    }
-    
-    public function setLabel($value)
-    {
-        $this->label = $value;
+        $this->_label = $value;
         return $this;
     }
     
-    /**
-     * 
-     * @param string $name
-     * @param string $label
-     * @param mixed $value
-     * @return \Pform\Element
-     */
-    public function __construct($name)
+    function __construct($name)
     {
-        $this->setId($name);
-        $this->name = $name;
+        parent::__construct($name);
+        $this->_addAttribute('name',$name);
         return $this;
     }
     
-    public function setName($value)
+    function getName()
     {
-        $this->name = $value;
-        return $this;
+        return $this->_attributes['name'];
     }
     
-    public function getName()
+    protected function _getLabel()
     {
-        return $this->name;
-    }
-    
-    public function getNameTag()
-    {
-        return "name='{$this->name}'";
-    }
-    
-    public function addFilter()
-    {
-        
-    }
-    
-    public function addFilters()
-    {
-        
-    }
-    
-    public function addValidator()
-    {
-        
-    }
-    
-    public function addValidators()
-    {
-        
-    }
-    
-    protected function getLabel()
-    {
-        if(empty($this->label)){
+        if(empty($this->_label)){
             return '';
         }
         $required = '';
-        if($this->required){
-            $required = '*';
+        if($this->isRequired()){
+            $required = '<i data-uk-tooltip title="required">*</i>';
         }
-        return "<label for='{$this->getId()}'>{$this->label}{$required}</label>";
+        return "<label class='uk-form-label' for='{$this->getId()}'>{$this->_label}{$required}</label>";
     }
     
-    public function render()
+    function __toString()
     {
-        if(empty($this->wrapper)){
-            return "{$this->getLabel()}
-            {$this->input}
-                {$this->getMessage()}";
-        }else{
-            return "<{$this->wrapper}>
-                {$this->getLabel()}
-                {$this->input}
-                    {$this->getMessage()}
-                        </$this->wrapper>";
-        }
+        return $this->render();
+    }
+    
+    function render()
+    {
+        $h = array();
+        $h[] = "<div class='uk-form-row'>";
+            if($this->_label){
+                $h[] = $this->_getLabel();
+            }
+            $h[] = "<div class='uk-form-controls'>";
+            $h[] = $this->_element;
+            $h[] = "</div>";
+        $h[] = "</div>";
+        return implode('',$h);
     }
 
 }}
