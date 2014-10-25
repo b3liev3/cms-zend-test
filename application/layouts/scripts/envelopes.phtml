@@ -7,7 +7,7 @@
     echo $this->headScript();
 
     //add a link to the site stylesheet
-    $this->headLink()->appendStylesheet('/css/envelopes/main.css');
+    $this->headLink()->appendStylesheet($this->baseUrl().'/css/envelopes/main.css');
     echo $this->headLink();
     ?>
 </head>
