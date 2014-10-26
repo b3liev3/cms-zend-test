@@ -1,16 +1,24 @@
 <?php
 namespace Pform{
 abstract class FormElement extends Html
-{
-    protected $_label = '';
-    
+{  
     protected $_value = null;
     
     protected $_name = '';
     
-    protected $_innerHtml = '';
+    protected $_help;
     
     protected $_required = false;
+    
+    protected $_renderStrategy;
+    
+    function __construct($name)
+    {
+        $this->_renderStrategy = new RenderStrategy_Row();
+        parent::__construct($name);
+        $this->_addAttribute('name',$name);
+        return $this;
+    }
     
     function setReadOnly($default = true)
     {
@@ -53,62 +61,103 @@ abstract class FormElement extends Html
 	return $this;
     }
     
-    abstract function isValid($value);
-    
-    
     function getValue()
     {
         return $this->_attributes['value'];
     }
-    
-    function setLabel($value)
-    {
-        $this->_label = $value;
-        return $this;
-    }
-    
-    function __construct($name,$label)
-    {
-        parent::__construct($name);
-        $this->_label = $label;
-        $this->_addAttribute('name',$name);
-        return $this;
-    }
-    
+        
     function getName()
     {
         return $this->_attributes['name'];
     }
-    
-    protected function _getLabel()
+
+    function setSizeNormal()
     {
-        if(empty($this->_label)){
-            return '';
-        }
-        $required = '';
-        if($this->isRequired()){
-            $required = '<i data-uk-tooltip title="required">*</i>';
-        }
-        return "<label class='uk-form-label' for='{$this->getId()}'>{$this->_label}{$required}</label>";
+        $this->removeClass('uk-form-large');
+        $this->removeClass('uk-form-small');
+        return $this;
     }
     
-    function __toString()
+    function setSizeSmall()
     {
-        return $this->render();
+        $this->removeClass('uk-form-large');
+        $this->addClass('uk-form-small');
+        return $this;
     }
     
-    function render()
+    function setSizeLarge()
     {
-        $h = array();
-        $h[] = "<div class='uk-form-row'>";
-            if($this->_label){
-                $h[] = $this->_getLabel();
-            }
-            $h[] = "<div class='uk-form-controls'>";
-            $h[] = $this->_innerHtml;
-            $h[] = "</div>";
-        $h[] = "</div>";
-        return implode('',$h);
+        $this->addClass('uk-form-large');
+        $this->removeClass('uk-form-small');
+        return $this;
+    }
+    
+    function setWidthNormal()
+    {
+        $this->removeClass('uk-form-width-large');
+        $this->removeClass('uk-form-width-medium');
+        $this->removeClass('uk-form-width-small');
+        $this->removeClass('uk-form-width-mini');
+        return $this;
+    }
+    
+    function setWidthLarge()
+    {
+        $this->setWidthNormal();
+        $this->addClass('uk-form-width-large');
+        return $this;
+    }
+    
+    function setWidthMedium()
+    {
+        $this->setWidthNormal();
+        $this->addClass('uk-form-width-medium');
+        return $this;
+    }
+    
+    function setWidthSmall()
+    {
+        $this->setWidthNormal();
+        $this->addClass('uk-form-width-small');
+        return $this;
+    }
+    
+    function setWidthMini()
+    {
+        $this->setWidthNormal();
+        $this->addClass('uk-form-width-mini');
+        return $this;
+    }
+    
+    function setNoStyle($default = true)
+    {
+        if($default){
+            $this->addClass('uk-form-blank');
+        }else{
+            $this->removeClass('uk-form-blank');
+        }
+        return $this;
+    }
+    
+    /**
+     * 
+     * of type 1-1, 1-2, 1-4...
+     * @param string $width
+     */
+    function setWidth($width)
+    {
+        $this->setWidthNormal();
+        $this->addClass('uk-width-'.$width);
     }
 
+    function setHelpInline($text)
+    {
+        $this->_help = "<span class='uk-form-help-inline'>{$text}</span>";
+    }
+    
+    function setHelpBlock($text)
+    {
+        $this->_help = "<p class='uk-form-help-block'>{$text}</p>";
+    }
+    
 }}

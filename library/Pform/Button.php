@@ -4,18 +4,18 @@ namespace Pform{
 	
         protected $_description;
         
-	function render()
-	{
-	    $this->_innerHtml = "<button {$this->getAttributes()}>".$this->_description."</button>";
-	    return parent::render();
-	}
-        
         function __construct($name,$description)
         {
             $this->addClass('uk-button');
             $this->_description = $description;
-            parent::__construct($name,'');
+            parent::__construct($name);
         }
+        
+	function render()
+	{
+	    $this->_renderStrategy->setInnerHtml("<button {$this->getAttributes()}>".$this->_description."</button>");
+	    return $this->_renderStrategy->render();
+	}
         
         function isValid($value) {
             return true;

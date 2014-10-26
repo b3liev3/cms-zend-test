@@ -4,7 +4,21 @@ class Form extends Fieldset
 {
     protected $_method = 'POST';
     
-    protected $_action;
+    protected $_action = '';
+    
+    protected $_fieldset;
+    
+    /**
+     * 
+     * @param string $htmlId
+     * @param string $legend
+     */
+    function __construct($htmlId,$legend) 
+    {
+        $this->addClass('uk-form');
+        $this->setStacked();
+        parent::__construct($htmlId,$legend);
+    }
     
     function setStacked()
     {
@@ -12,17 +26,6 @@ class Form extends Fieldset
             $this->removeClass('uk-form-horizontal');
         }
         $this->addClass('uk-form-stacked');
-    }
-    
-    /**
-     * 
-     * @param string $htmlId
-     */
-    function __construct($htmlId) 
-    {
-        $this->addClass('uk-form');
-        $this->setStacked();
-        parent::__construct($htmlId);
     }
     
     function setHorizontal()
@@ -49,8 +52,5 @@ class Form extends Fieldset
         return implode('',$html);
     }
     
-    function __toString() {
-        return $this->render();
-    }
 }
 }

@@ -1,52 +1,25 @@
 <?php
-echo "<form>";
-echo "<input type='button' /><label>button</label><br/>";
-echo "<input type='checkbox' /><label>checkbox</label><br/>";
-echo "<input type='color' /><label>color</label><br/>";
-echo "<input type='date' /><label>date</label><br/>";
-echo "<input type='datetime' /><label>datetime</label><br/>";
-echo "<input type='datetime-local' /><label>datetime-local</label><br/>";
-echo "<input type='email' /><label>email</label><br/>";
-echo "<input type='file' /><label>file</label><br/>";
-echo "<input type='hidden' /><label>hidden</label><br/>";
-echo "<input type='image' /><label>image</label><br/>";
-echo "<input type='month' /><label>month</label><br/>";
-echo "<input type='number' /><label>number</label><br/>";
-echo "<input type='password' /><label>password</label><br/>";
-echo "<input type='radio' /><label>radio</label><br/>";
-echo "<input type='range' /><label>range</label><br/>";
-echo "<input type='reset' /><label>reset</label><br/>";
-echo "<input type='search' /><label>search</label><br/>";
-echo "<input type='submit' /><label>submit</label><br/>";
-echo "<input type='tel' /><label>tel</label><br/>";
-echo "<input type='text' /><label>text</label><br/>";
-echo "<input type='time' /><label>time</label><br/>";
-echo "<input type='url' /><label>url</label><br/>";
-echo "<input type='week' /><label>week</label><br/>";
-echo "</form>"; 
+echo "<a href='".$this->baseUrl()."/envelopes/test/all-types'>All form types</a>";
+echo Utilities\Utilities::pre($this->params);
+$form = new \Pform\Form('form', 'This is a form');
+$username = new \Pform\Input_Text('username', 'Username');
+$username->setValue('Text')->setPlaceholder('Username')->setRequired();
+$password = new \Pform\Input_Text('password','Password');
+$password->setRequired();
+$form->addElement($username);
+$form->addElement($password);
 
-$form = new \Pform\Form('house');
+$fieldset = new Pform\Fieldset('blah','Address info');
+$street = new \Pform\Input_Text('street', 'Street');
+$fieldset->addElement($street);
+$postalcode = new \Pform\Input_Text('postal-code','Postal Code');
+$fieldset->addElement($postalcode);
+$form->addElement($fieldset);
+$form->addElement(new \Pform\Button('submit', 'Submit'));
 
-$form->setLegend('Your address');
-$e1 = new \Pform\Input_Text('your-name','Your name');
-
-$form->appendElement($e1);
-$e2 = new \Pform\Input_Text('street','Street name');
-
-$form->appendElement($e2);
-$button = new Pform\Button('submit','Submit');
-
-$fieldset = new Pform\Fieldset('fieldset-1');
-$fieldset->setLegend('Nice Legend');
-$textarea = new \Pform\Textarea('textarea','Comments');
-$user = new \Pform\Input_Text('other-text','User');
-
-$fieldset->appendElement($user);
-$fieldset->appendElement($textarea);
-$form->appendElement($fieldset);
-
-$form->appendElement($button);
-
-
-echo $form;
+if(isset($this->params)){
+    $form->setValues($this->params);
+}
+echo $form->render();
     
+echo Utilities\Utilities::pre($form->getValues());

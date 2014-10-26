@@ -11,6 +11,16 @@ abstract class Html
         $this->_attributes['id'] = $id;
     }
     
+    /**
+     * 
+     * An attribute can be of the type:
+     * placeholer = 'Lastname'
+     * or of the type
+     * data-uk-margin
+     * @param string $key
+     * @param string $value
+     * @return \Pform\Html
+     */
     protected function _addAttribute($key,$value = '')
     {
         $this->_attributes[$key] = $value;
@@ -25,6 +35,10 @@ abstract class Html
         return $this;
     }
     
+    /**
+     * 
+     * @return string
+     */
     function getAttributes()
     {
         $attributes = '';
@@ -75,5 +89,10 @@ abstract class Html
     }
     
     abstract function render();
+    
+    function __toString()
+    {
+        return $this->render();
+    }
 }
 }
