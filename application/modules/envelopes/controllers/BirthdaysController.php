@@ -24,8 +24,8 @@ class Envelopes_BirthdaysController extends MyLibrary_Controller_Action {
         
         //$this->_addUikitComponent('datepicker');
         
-        $this->_addJs('/js/envelopes/birthday-page.js');
-        $this->_addJs('/js/tools/jquery.maskedinput.min.js');
+        $this->_addJs($this->view->baseUrl().'/js/envelopes/birthday-page.js');
+        $this->_addJs($this->view->baseUrl().'/js/tools/jquery.maskedinput.min.js');
         
         $mapper = new Envelopes_Model_BirthdayMapper();
         $operation = $this->_request->getParam('operation');

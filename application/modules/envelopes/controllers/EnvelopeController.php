@@ -7,7 +7,7 @@ class Envelopes_EnvelopeController extends MyLibrary_Controller_Action {
      */
     function editAction()
     {
-        $this->view->headScript()->appendFile('/js/uikit/addons/datepicker.min.js');
+        $this->view->headScript()->appendFile($this->view->baseUrl().'/js/uikit/addons/datepicker.min.js');
         $id = $this->_request->getParam('id');
         $mapper = new Envelopes_Model_EnvelopeMapper();
 
@@ -25,7 +25,7 @@ class Envelopes_EnvelopeController extends MyLibrary_Controller_Action {
     
     function indexAction()
     {
-        $this->view->headScript()->appendFile('/js/uikit/addons/datepicker.min.js');
+        $this->view->headScript()->appendFile($this->view->baseUrl().'/js/uikit/addons/datepicker.min.js');
                 
         $mapper = new Envelopes_Model_EnvelopeMapper();
         if($this->_request->getParam('create') == 'insert'){
