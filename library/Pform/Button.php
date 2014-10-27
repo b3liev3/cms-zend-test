@@ -4,10 +4,11 @@ namespace Pform{
 	
         protected $_description;
         
-        function __construct($name,$description)
+        function __construct($name,$description,$value)
         {
             $this->addClass('uk-button');
             $this->_description = $description;
+            $this->setValue($value);
             parent::__construct($name);
         }
         

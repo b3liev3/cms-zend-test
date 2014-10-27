@@ -41,7 +41,7 @@ class Envelopes_IndexController extends MyLibrary_Controller_Action {
 
     function configAction()
     {
-        
+        $this->view->params = null;
     }
     
     function logOutAction()
