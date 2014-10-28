@@ -1,6 +1,10 @@
 <?php
 class Envelopes_Model_UserMapper{
     
+    const DB_USERNAME = 'username';
+    const DB_HAS_ENVELOPE = 'has_envelope';
+    const DB_COMPLETE = 'complete';
+    
     protected function _getAdapter()
     {
         return Zend_Db_Table::getDefaultAdapter();
@@ -55,11 +59,6 @@ class Envelopes_Model_UserMapper{
     {
         $row = $this->_getAdapter()->fetchAll("select * from users where username like ?",$id);
         if($row){
-             /*
-            [username] => ppages
-            [complete] => Pere Pages
-            [has_envelope] => 0
-              */
             $data = $row[0];
             $rights = $this->_getRights($data['username']);
             if($data['has_envelope'] == 1){
@@ -74,7 +73,11 @@ class Envelopes_Model_UserMapper{
     
     function save(Envelopes_Model_User $user)
     {
+        $data = array();
+        $data[self::DB_COMPLETE] = $user->getComplete();
+        $data[self::DB_HAS_ENVELOPE] = $user->hasEnvelope();
         
+        $this->_getAdapter()->update('users', $data, "username = '{$user->getId()}'");
     }
 }
     

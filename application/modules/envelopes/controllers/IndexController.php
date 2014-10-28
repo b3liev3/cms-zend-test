@@ -41,7 +41,21 @@ class Envelopes_IndexController extends MyLibrary_Controller_Action {
 
     function configAction()
     {
-        $this->view->params = null;
+        if($this->_request->getParam('save')){
+            $user = Zend_Registry::get('user');
+            $userMapper = new Envelopes_Model_UserMapper();
+            if($this->_request->getParam('has_envelope') == '0'){
+                $user->setHasEnvelope(false);                
+            }else{
+                $user->setHasEnvelope(true);
+            }
+            $userMapper->save($user);
+            Envelopes_Model_Messages::add('User info saved', 'info');
+            $redirect = $this->_request->getParam('redirect');
+            if($redirect){
+                $this->_redirect($this->view->baseUrl().$redirect);
+            }
+        }
     }
     
     function logOutAction()

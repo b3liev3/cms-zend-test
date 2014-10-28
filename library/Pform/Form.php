@@ -8,6 +8,8 @@ class Form extends Fieldset
     
     protected $_fieldset;
     
+    protected $_redirect = '';
+    
     /**
      * 
      * @param string $htmlId
@@ -18,6 +20,17 @@ class Form extends Fieldset
         $this->addClass('uk-form');
         $this->setStacked();
         parent::__construct($htmlId,$legend);
+    }
+    
+    function setRedirect($value)
+    {
+        $this->_redirect = $value;
+        return $this;
+    }
+    
+    function hasRedirect()
+    {
+        return !empty($this->_redirect);
     }
     
     function setStacked()
@@ -46,6 +59,9 @@ class Form extends Fieldset
         $html = array();
         
         $html[] = "<form method='{$this->_method}' action='{$this->_action}' {$this->getAttributes()}>";
+        if($this->hasRedirect()){
+            $html[] = "<input type='hidden' value='{$this->_redirect}' name='redirect' />";
+        }
         $html[] = parent::render();
         $html[] = "</form>";
         

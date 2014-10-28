@@ -22,6 +22,12 @@ class Envelopes_Model_User{
         return $this->_hasEnvelope;
     }
     
+    function setHasEnvelope($default = true)
+    {
+        $this->_hasEnvelope = $default;
+        return $this;
+    }
+    
     function getId()
     {
         return $this->_id;

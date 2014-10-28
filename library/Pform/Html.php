@@ -47,8 +47,8 @@ abstract class Html
         }
         if($this->_attributes){
             foreach($this->_attributes as $key => $value){
-                if(empty($value)){
-                    $attributes = $attributes." {$key} ";
+                if($value == ''){
+                    $attributes = $attributes." {$key}";
                 }else{
                     $attributes = $attributes." {$key}='{$value}' ";
                 }

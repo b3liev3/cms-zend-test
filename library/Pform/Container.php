@@ -75,6 +75,7 @@ abstract class Container extends Html implements Values{
                 $this->_elements[$key]->setValue($value);
             }
         }
+        return $this;
     }
     
     function getValues()
