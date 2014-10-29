@@ -53,7 +53,7 @@ class Envelopes_IndexController extends MyLibrary_Controller_Action {
             Envelopes_Model_Messages::add('User info saved', 'info');
             $redirect = $this->_request->getParam('redirect');
             if($redirect){
-                $this->_redirect($this->view->baseUrl().$redirect);
+                $this->_redirect($redirect);
             }
         }
     }

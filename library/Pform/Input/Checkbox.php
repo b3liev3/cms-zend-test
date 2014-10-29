@@ -4,7 +4,15 @@ class Input_Checkbox extends Input
 {
     protected $_type = 'checkbox';
     
-    protected $_checkboxLabel = '';
+    protected $_icon = '';
+    
+    protected $_checboxLabel = '';
+    
+    function setIcon($icon)
+    {
+        $this->_icon = $icon;
+        return $this;
+    }
     
     function __construct($name, $value,$label) {
         $this->_value = $value;
@@ -21,7 +29,11 @@ class Input_Checkbox extends Input
     
     function render()
     {
-	$this->_renderStrategy->setInnerHtml("<label><input {$this->getAttributes()} type='{$this->_type}' /> {$this->_checkboxLabel}</label>");
+        $i = '';
+        if($this->_icon){
+            $i = ' <i class="uk-icon-'.$this->_icon.'"></i>';
+        }
+	$this->_renderStrategy->setInnerHtml("<label><input {$this->getAttributes()} type='{$this->_type}' /> {$this->_checkboxLabel}{$i}</label>");
         return $this->_renderStrategy->render();
     }
 }
