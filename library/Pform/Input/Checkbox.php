@@ -4,10 +4,13 @@ class Input_Checkbox extends Input
 {
     protected $_type = 'checkbox';
     
+    protected $_checkboxLabel = '';
+    
     function __construct($name, $value,$label) {
         $this->_value = $value;
         $this->_addAttribute('value',$value);
-        parent::__construct($name, $label);
+	$this->_checkboxLabel = $label;
+        parent::__construct($name, '');
     }
     
     function setValue($value) {
@@ -18,7 +21,8 @@ class Input_Checkbox extends Input
     
     function render()
     {
-        return "<label><input {$this->getAttributes()} type='{$this->_type}' /> {$this->_renderStrategy->getLabel()}</label>";
+	$this->_renderStrategy->setInnerHtml("<label><input {$this->getAttributes()} type='{$this->_type}' /> {$this->_checkboxLabel}</label>");
+        return $this->_renderStrategy->render();
     }
 }
 }

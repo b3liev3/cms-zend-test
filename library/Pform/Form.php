@@ -1,7 +1,6 @@
 <?php
-namespace Pform{
-class Form extends Fieldset
-{
+namespace Pform{ 
+class Form extends Fieldset{
     protected $_method = 'POST';
     
     protected $_action = '';

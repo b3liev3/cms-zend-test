@@ -10,6 +10,10 @@ abstract class FormElement extends Html
     
     protected $_required = false;
     
+    /**
+     *
+     * @var RenderStrategy_Row
+     */
     protected $_renderStrategy;
     
     function __construct($name)
