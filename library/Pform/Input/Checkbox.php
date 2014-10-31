@@ -33,7 +33,7 @@ class Input_Checkbox extends Input
         if($this->_icon){
             $i = ' <i class="uk-icon-'.$this->_icon.'"></i>';
         }
-	$this->_renderStrategy->setInnerHtml("<label><input {$this->getAttributes()} type='{$this->_type}' /> {$this->_checkboxLabel}{$i}</label>");
+	      $this->_renderStrategy->setInnerHtml("<label><input {$this->getAttributes()} type='{$this->_type}' /> {$this->_checkboxLabel}{$i}</label>");
         return $this->_renderStrategy->render();
     }
 }
