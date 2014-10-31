@@ -21,6 +21,7 @@ class RenderStrategy_Row extends RenderStrategy
         $h[] = "<div class='uk-form-row'>";
             if($this->_label){
                 $h[] = $this->getLabel();
+                $h[] = "<label class='uk-form-label'>".$this->getLabel()."</label>";
             }
             $h[] = "<div class='uk-form-controls uk-form-controls-text'>";
             $h[] = $this->_innerHtml;
