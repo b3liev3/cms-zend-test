@@ -1,6 +1,6 @@
 {
       "require": {
            "gchartphp/gchartphp": "dev-master",
-           "phpunit/phpunit":"4.3.*"
+           "phpunit/phpunit":"3.7.*"
       }
  }

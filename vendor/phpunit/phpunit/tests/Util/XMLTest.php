@@ -55,7 +55,6 @@
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.3.0
- * @covers     PHPUnit_Util_XML
  */
 class Util_XMLTest extends PHPUnit_Framework_TestCase
 {
@@ -73,7 +72,7 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
     {
         $options   = array('testA' => 1, 'testB' => 2);
         $valid     = array('testA', 'testB', 'testC');
-        $expected  = array('testA' => 1, 'testB' => 2, 'testC' => null);
+        $expected  = array('testA' => 1, 'testB' => 2, 'testC' => NULL);
         $validated = PHPUnit_Util_XML::assertValidKeys($options, $valid);
 
         $this->assertEquals($expected, $validated);
@@ -107,7 +106,9 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
         try {
             $validated = PHPUnit_Util_XML::assertValidKeys($options, $valid);
             $this->fail();
-        } catch (PHPUnit_Framework_Exception $e) {
+        }
+
+        catch (PHPUnit_Framework_Exception $e) {
             $this->assertEquals('Unknown key(s): testD', $e->getMessage());
         }
     }
@@ -120,14 +121,16 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
         try {
             $validated = PHPUnit_Util_XML::assertValidKeys($options, $valid);
             $this->fail();
-        } catch (PHPUnit_Framework_Exception $e) {
+        }
+
+        catch (PHPUnit_Framework_Exception $e) {
             $this->assertEquals('Unknown key(s): testD, testE', $e->getMessage());
         }
     }
 
     public function testConvertAssertSelect()
     {
-        $selector  = 'div#folder.open a[href="http://www.xerox.com"][title="xerox"].selected.big > span + h1';
+        $selector  = 'div#folder.open a[href="http://www.xerox.com"][title="xerox"].selected.big > span';
         $converted = PHPUnit_Util_XML::convertSelectToTag($selector);
         $tag       = array('tag'   => 'div',
                            'id'    => 'folder',
@@ -136,8 +139,7 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
                                                  'class'      => 'selected big',
                                                  'attributes' => array('href'  => 'http://www.xerox.com',
                                                                        'title' => 'xerox'),
-                                                 'child'      => array('tag' => 'span',
-                                                                       'adjacent-sibling' => array('tag' => 'h1'))));
+                                                 'child'      => array('tag' => 'span')));
          $this->assertEquals($tag, $converted);
     }
 
@@ -260,15 +262,6 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($tag, $converted);
     }
 
-    public function testConvertAssertSelectEltAdjacentSibling()
-    {
-        $selector  = 'div + a';
-        $converted = PHPUnit_Util_XML::convertSelectToTag($selector);
-        $tag       = array('tag' => 'div', 'adjacent-sibling' => array('tag' => 'a'));
-
-        $this->assertEquals($tag, $converted);
-    }
-
     public function testConvertAssertSelectEltDescendant()
     {
         $selector  = 'div a';
@@ -291,7 +284,7 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
     public function testConvertAssertSelectTrue()
     {
         $selector  = '#foo';
-        $content   = true;
+        $content   = TRUE;
         $converted = PHPUnit_Util_XML::convertSelectToTag($selector, $content);
         $tag       = array('id' => 'foo');
 
@@ -301,7 +294,7 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
     public function testConvertAssertSelectFalse()
     {
         $selector  = '#foo';
-        $content   = false;
+        $content   = FALSE;
         $converted = PHPUnit_Util_XML::convertSelectToTag($selector, $content);
         $tag       = array('id' => 'foo');
 
@@ -328,36 +321,8 @@ class Util_XMLTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($tag, $converted);
     }
 
-    /**
-     * @dataProvider charProvider
-     */
-    public function testPrepareString($char)
+    public function testPrepareStringEscapesChars()
     {
-        $e = null;
-
-        $escapedString = PHPUnit_Util_XML::prepareString($char);
-        $xml = "<?xml version='1.0' encoding='UTF-8' ?><tag>$escapedString</tag>";
-        $dom = new DomDocument('1.0', 'UTF-8');
-
-        try {
-            $dom->loadXML($xml);
-        } catch (Exception $e) {
-        }
-
-        $this->assertNull($e, sprintf(
-            'PHPUnit_Util_XML::prepareString("\x%02x") should not crash DomDocument',
-            ord($char)
-        ));
-    }
-
-    public function charProvider()
-    {
-        $data = array();
-
-        for ($i = 0; $i < 256; $i++) {
-            $data[] = array(chr($i));
-        }
-
-        return $data;
+        $this->assertEquals('&#x1b;', PHPUnit_Util_XML::prepareString("\033"));
     }
 }

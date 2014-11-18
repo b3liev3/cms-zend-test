@@ -42,6 +42,8 @@
  * @since      File available since Release 2.0.0
  */
 
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Success.php';
+
 /**
  *
  *
@@ -51,7 +53,6 @@
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
- * @covers     PHPUnit_Extensions_RepeatedTest
  */
 class Extensions_RepeatedTestTest extends PHPUnit_Framework_TestCase
 {
@@ -96,7 +97,9 @@ class Extensions_RepeatedTestTest extends PHPUnit_Framework_TestCase
     {
         try {
             $test = new PHPUnit_Extensions_RepeatedTest($this->suite, -1);
-        } catch (Exception $e) {
+        }
+
+        catch (Exception $e) {
             return;
         }
 

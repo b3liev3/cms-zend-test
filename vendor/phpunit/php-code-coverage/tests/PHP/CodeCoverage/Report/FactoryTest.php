@@ -183,7 +183,7 @@ class PHP_CodeCoverage_Report_FactoryTest extends PHP_CodeCoverage_TestCase
           'PHP_CodeCoverage_Report_Factory', 'buildDirectoryStructure'
         );
 
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
 
         $this->assertEquals(
           array(
@@ -209,7 +209,7 @@ class PHP_CodeCoverage_Report_FactoryTest extends PHP_CodeCoverage_TestCase
           'PHP_CodeCoverage_Report_Factory', 'reducePaths'
         );
 
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
 
         $_commonPath = $method->invokeArgs($this->factory, array(&$paths));
 

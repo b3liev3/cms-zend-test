@@ -7,7 +7,7 @@ class GchartsController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-
+        
 
         $piChart = new gchart\gPieChart();
 

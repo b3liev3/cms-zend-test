@@ -42,6 +42,9 @@
  * @since      File available since Release 2.0.0
  */
 
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'DoubleTestCase.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Success.php';
+
 /**
  *
  *
@@ -54,17 +57,22 @@
  */
 class Framework_TestImplementorTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers PHPUnit_Framework_TestCase
-     */
+    protected $test;
+
+    public function __construct()
+    {
+        $this->test = new DoubleTestCase(
+          new Success
+        );
+    }
+
     public function testSuccessfulRun()
     {
         $result = new PHPUnit_Framework_TestResult;
 
-        $test = new DoubleTestCase(new Success);
-        $test->run($result);
+        $this->test->run($result);
 
-        $this->assertEquals(count($test), count($result));
+        $this->assertEquals(count($this->test), count($result));
         $this->assertEquals(0, $result->errorCount());
         $this->assertEquals(0, $result->failureCount());
     }

@@ -42,6 +42,9 @@
  * @since      File available since Release 2.3.0
  */
 
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'BankAccount.php';
+
 /**
  * Tests for the BankAccount class.
  *
@@ -80,7 +83,9 @@ class BankAccountWithCustomExtensionTest extends PHPUnit_Framework_TestCase
     {
         try {
             $this->ba->withdrawMoney(1);
-        } catch (BankAccountException $e) {
+        }
+
+        catch (BankAccountException $e) {
             $this->assertEquals(0, $this->ba->getBalance());
 
             return;
@@ -98,7 +103,9 @@ class BankAccountWithCustomExtensionTest extends PHPUnit_Framework_TestCase
     {
         try {
             $this->ba->depositMoney(-1);
-        } catch (BankAccountException $e) {
+        }
+
+        catch (BankAccountException $e) {
             $this->assertEquals(0, $this->ba->getBalance());
 
             return;

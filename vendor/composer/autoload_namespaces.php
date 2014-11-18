@@ -8,5 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'gchart' => array($vendorDir . '/gchartphp/gchartphp'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
-    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src'),
 );
